@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-black text-white;
+}
+
+a {
+  @apply underline decoration-gray-500 hover:decoration-white;
+}
+
+.fade {
+  animation: fadein 0.8s ease-in-out;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
