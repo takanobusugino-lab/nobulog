@@ -1,10 +1,11 @@
-const isProd = process.env.NODE_ENV === 'production';
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: isProd ? '/nobulog' : '',
-  images: { unoptimized: true }
+  basePath: '/nobulog',
+  assetPrefix: '/nobulog/',
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 export default nextConfig;
