@@ -2,7 +2,8 @@
 const nextConfig = {
   output: 'export',
   basePath: '/nobulog',
-  assetPrefix: '/nobulog/',
+  assetPrefix: '/nobulog',
+  trailingSlash: true,
   typescript: {
     ignoreBuildErrors: true,
   },
