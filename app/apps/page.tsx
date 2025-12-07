@@ -19,6 +19,9 @@ export default function Apps() {
           >
             ・Image Scraper Downloader
           </a>
+          <p className="text-sm text-gray-400">
+            公開ページにある画像を一覧表示し、選択してZIPでまとめてダウンロードできます。
+          </p>
         </li>
       </ul>
     </>
