@@ -5,7 +5,9 @@ import matter from "gray-matter";
 
 export default function Blog() {
   const postsDir = path.join(process.cwd(), "posts");
-  const files = fs.readdirSync(postsDir);
+  const files = fs
+    .readdirSync(postsDir)
+    .filter((file) => file.endsWith(".md")); // ディレクトリなどを除外
 
   const posts = files.map((file) => {
     const md = fs.readFileSync(path.join(postsDir, file), "utf-8");
@@ -23,7 +25,7 @@ export default function Blog() {
       <ul className="space-y-4">
         {posts.map((post) => (
           <li key={post.slug}>
-            {/* basePath を自動的に使うため相対パスに修正 */}
+            {/* basePath 環境で相対リンクにする */}
             <a href={`./${post.slug}`} className="underline">
               {post.title}{" "}
               <span className="text-gray-500 text-sm">{post.date}</span>

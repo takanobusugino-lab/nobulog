@@ -4,8 +4,9 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
+import { notFound } from "next/navigation";
 
-// 🔥 静的生成に必要な slug 一覧を Next.js に渡す
+// 静的生成用の slug 一覧を Next.js に渡す
 export async function generateStaticParams() {
   const postsDir = path.join(process.cwd(), "posts");
   const files = fs.readdirSync(postsDir);
@@ -15,10 +16,20 @@ export async function generateStaticParams() {
   }));
 }
 
-// 🔥 slug 単体ページ
-export default async function BlogPost({ params }) {
+// slug ごとのページ
+export default async function BlogPost({ params }: { params: { slug: string } }) {
   const filePath = path.join(process.cwd(), "posts", `${params.slug}.md`);
-  const file = fs.readFileSync(filePath, "utf-8");
+
+  if (!fs.existsSync(filePath)) {
+    return notFound();
+  }
+
+  let file: string;
+  try {
+    file = fs.readFileSync(filePath, "utf-8");
+  } catch (error) {
+    return notFound();
+  }
 
   const { data, content } = matter(file);
   const processed = await remark().use(html).process(content);
